@@ -1,0 +1,17 @@
+body
+{
+	height: 150px;
+	width: 150px;
+}
+
+div
+{
+	font-family: sans-serif;
+	cursor: pointer;
+}
+
+#shrug
+{
+	width: 75px;
+	float: left;
+}

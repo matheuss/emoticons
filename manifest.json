@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+
+  "name": "Emoticons",
+  "description": "Emoticons",
+  "version": "1.0",
+
+  "browser_action": 
+  {
+    "default_title": "Emoticonss",
+    "default_icon": "icon_128.png",
+    "default_popup": "popup.html"
+  },
+
+  "icons": 
+  { 
+    "128": "icon_128.png" 
+  },
+
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+
+  "permissions": 
+  [
+    "clipboardWrite"
+  ],
+
+  "background": 
+  {
+    "scripts": ["copy.js"],
+    "persistent": true
+  }
+
+
+}
