@@ -1,6 +1,6 @@
 window.onload = function () 
 {
-    initializeHTML();
+    chrome.storage.sync.get(null,initializeHTML);
 
     var divs = document.getElementsByClassName('text');
 
@@ -30,43 +30,24 @@ function selectText(id)
     }
 }
 
-function initializeHTML(/*divs*/) 
+function initializeHTML(emoticons) 
 {
-    
-    //for(var i = 0; i < divs.length; i++)
-    var div = document.createElement('div');
-    div.setAttribute('id', 'shrug');
-    div.setAttribute('class', 'text');
-    div.innerHTML = '¯\\_(ツ)_/¯';
+    console.log(emoticons);
 
-    document.getElementsByTagName('body')[0].appendChild(div);
-    
-    div = document.createElement('div');
-    div.setAttribute('id', 'leface');
-    div.setAttribute('class', 'text');
-    div.innerHTML = '( ͡° ͜ʖ ͡°)';
-
-    document.getElementsByTagName('div')[0].parentNode.appendChild(div);
-
-    div = document.createElement('div');
-    div.setAttribute('id', 'registred');
-    div.setAttribute('class', 'text');
-    div.innerHTML = '®';
-
-    document.getElementsByTagName('div')[0].parentNode.appendChild(div);
-
-    div = document.createElement('div');
-    div.setAttribute('id', 'copyright');
-    div.setAttribute('class', 'text');
-    div.innerHTML = '©';
-
-    document.getElementsByTagName('div')[0].parentNode.appendChild(div);
-
+    for(var emoticon in emoticons)
+    {
+        var div = document.createElement('div');
+        div.setAttribute('id', emoticon);
+        div.setAttribute('class', 'text');
+        div.innerHTML = emoticons[emoticon];
+        document.getElementsByTagName('body')[0].appendChild(div);
+        alert(emoticon);
+    }
 }
 
-function removeEmoticon(emoticon)
+function removeEmoticon(id)
 {
-    var emoticon = document.getElementById(emoticon);
+    var emoticon = document.getElementById(id);
     emoticon.parentNode.removeChild(emoticon);
 }
 
@@ -76,7 +57,5 @@ function addEmoticon(id, text)
     div.setAttribute('id', id);
     div.setAttribute('class', 'text');
     div.innerHTML = text;
-
     document.getElementsByTagName('div')[0].parentNode.appendChild(div);
-
 }
