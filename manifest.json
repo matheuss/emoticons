@@ -21,7 +21,8 @@
 
   "permissions": 
   [
-    "clipboardWrite"
+    "clipboardWrite",
+    "storage"
   ],
 
   "background": 
