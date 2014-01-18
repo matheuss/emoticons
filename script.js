@@ -9,7 +9,6 @@ window.onload = function ()
         divs[i].onclick = function() 
         {
             selectText(this.id);
-            console.log("a");
             copy();
         }
     }
@@ -60,6 +59,23 @@ function initializeHTML(/*divs*/)
     div.setAttribute('id', 'copyright');
     div.setAttribute('class', 'text');
     div.innerHTML = '©';
+
+    document.getElementsByTagName('div')[0].parentNode.appendChild(div);
+
+}
+
+function removeEmoticon(emoticon)
+{
+    var emoticon = document.getElementById(emoticon);
+    emoticon.parentNode.removeChild(emoticon);
+}
+
+function addEmoticon(id, text)
+{
+    div = document.createElement('div');
+    div.setAttribute('id', id);
+    div.setAttribute('class', 'text');
+    div.innerHTML = text;
 
     document.getElementsByTagName('div')[0].parentNode.appendChild(div);
 
