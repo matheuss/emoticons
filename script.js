@@ -1,17 +1,6 @@
 window.onload = function () 
 {
-    chrome.storage.sync.get(null,initializeHTML);
-
-    var divs = document.getElementsByClassName('text');
-
-    for(var i = 0; i < divs.length; i++)
-    {      
-        divs[i].onclick = function() 
-        {
-            selectText(this.id);
-            copy();
-        }
-    }
+    getStorage();
 }
 
 function selectText(id) 
@@ -30,32 +19,61 @@ function selectText(id)
     }
 }
 
-function initializeHTML(emoticons) 
+function getStorage()
+{
+    chrome.storage.sync.get(null, put);
+}
+
+function put(emoticons) 
 {
     console.log(emoticons);
-
     for(var emoticon in emoticons)
     {
-        var div = document.createElement('div');
-        div.setAttribute('id', emoticon);
-        div.setAttribute('class', 'text');
-        div.innerHTML = emoticons[emoticon];
-        document.getElementsByTagName('body')[0].appendChild(div);
-        alert(emoticon);
+        if(document.getElementById(emoticon) == null)
+        {
+            var div = document.createElement('div');
+            div.setAttribute('id', emoticon);
+            div.setAttribute('class', 'text');
+            div.innerHTML = sanitize(emoticons[emoticon]);
+            div.onclick = function() 
+            {
+                paste(this.innerHTML);
+            }
+            document.body.appendChild(div);
+        }
     }
 }
 
 function removeEmoticon(id)
 {
-    var emoticon = document.getElementById(id);
+    var emoticon = document.getElementById('teste');
     emoticon.parentNode.removeChild(emoticon);
+    chrome.storage.sync.remove(id);
 }
 
 function addEmoticon(id, text)
 {
-    div = document.createElement('div');
-    div.setAttribute('id', id);
-    div.setAttribute('class', 'text');
-    div.innerHTML = text;
-    document.getElementsByTagName('div')[0].parentNode.appendChild(div);
+    var emoticon  = {};
+    emoticon[id]  = text;
+    chrome.storage.sync.set(emoticon);
+    getStorage();
+}
+
+function sanitize(text)
+{
+    var sanitized = "";
+    for(var i = 0; i < text.length; i++)
+    {
+        if(text[i] == text[i + 1])
+        {
+            sanitized += text[i];
+            i++;
+        }
+        else
+        {
+            sanitized += text[i];
+        }
+    }
+    return sanitized;
+
 }

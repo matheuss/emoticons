@@ -22,7 +22,8 @@
   "permissions": 
   [
     "clipboardWrite",
-    "storage"
+    "storage",
+    "activeTab"
   ],
 
   "background": 
